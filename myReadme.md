@@ -49,3 +49,5 @@
 # Class
 
 - Enums, number of members Object.keys(Suit).length / 2
+
+* Array, Tuples, Type Aliases
