@@ -24,7 +24,7 @@ export class AccountManager {
   register(email: string, password: string) : IUser {
     if(!email) throw 'Must provide an email';
     if(!password) throw 'Must provide a password';
-    let user = { email, password } as IUser;
+    let user = { email, password };
     this.users.push(user);
     return user;
   }
@@ -37,9 +37,7 @@ export class AccountManager {
    */
   activateNewUser(approver: IAdmin, userToApprove: IUser): IConfirmedUser {
     if (!approver.adminSince) throw "Approver is not an admin!";
-    let confirmedUser = userToApprove as IConfirmedUser;
-    confirmedUser.isActive = true;
-    return confirmedUser;
+    return {...userToApprove, isActive: true};
   }
 
   /**
@@ -51,8 +49,6 @@ export class AccountManager {
   promoteToAdmin(existingAdmin: IAdmin, user: IConfirmedUser): IAdmin {
     if (!existingAdmin.adminSince) throw "Not an admin!";
     if (user.isActive !== true) throw "User must be active in order to be promoted to admin!";
-    let promotedUser = user as IAdmin;
-    promotedUser.adminSince = new Date();
-    return promotedUser;
+    return {...user, adminSince: new Date()};
   }
 }
